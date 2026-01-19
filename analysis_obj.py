@@ -64,6 +64,25 @@ def boxplot_AB(wide, title, path):
     fig.savefig(path, dpi=160)
     plt.close(fig)
 
+def homoscedasticity_plot(A, B, title, path):
+    """
+    Paired-friendly heteroscedasticity check:
+    plots |B-A| against the average (A+B)/2.
+    If spread grows with the mean, variance is not constant.
+    """
+    avg = (A + B) / 2
+    abs_diff = np.abs(B - A)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(avg, abs_diff)
+    ax.set_title(title)
+    ax.set_xlabel("Average of conditions (A+B)/2")
+    ax.set_ylabel("Absolute difference |B-A|")
+    fig.tight_layout()
+    fig.savefig(path, dpi=160)
+    plt.close(fig)
+
 def analyze_metric(task_name, wide, metric_name):
     A = wide["A"].to_numpy()
     B = wide["B"].to_numpy()
@@ -82,6 +101,13 @@ def analyze_metric(task_name, wide, metric_name):
 
     # ---- homoscedasticity A vs B (Levene) ----
     lev_stat, lev_p = stats.levene(A, B, center="median")
+
+    homoscedasticity_plot(
+        A, B,
+        f"{task_name} – {metric_name}: |B-A| vs avg (spread check)",
+        os.path.join(PLOTS_DIR, f"{base}__homo.png")
+    )
+    
     boxplot_AB(wide, f"{task_name} – {metric_name}: A vs B spread",
                os.path.join(PLOTS_DIR, f"{base}__box.png"))
 
