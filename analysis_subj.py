@@ -100,6 +100,25 @@ def save_box_AB(A, B, title, path):
     fig.savefig(path, dpi=160)
     plt.close(fig)
 
+def save_homoscedasticity_plot(A, B, title, path):
+    """
+    Paired-friendly spread check:
+    plots |B-A| vs average (A+B)/2.
+    Fan shape => heteroscedasticity (variance changes with magnitude).
+    """
+    A = np.asarray(A)
+    B = np.asarray(B)
+    avg = (A + B) / 2
+    abs_diff = np.abs(B - A)
+
+    fig, ax = plt.subplots()
+    ax.scatter(avg, abs_diff)
+    ax.set_title(title)
+    ax.set_xlabel("Average of conditions (A+B)/2")
+    ax.set_ylabel("Absolute difference |B-A|")
+    fig.tight_layout()
+    fig.savefig(path, dpi=160)
+    plt.close(fig)
 
 def analyze_subjective(task_name: str, wide: pd.DataFrame, item_col: str):
     A = wide["A"].to_numpy()
@@ -150,6 +169,11 @@ def analyze_subjective(task_name: str, wide: pd.DataFrame, item_col: str):
         B,
         f"{task_name} – {item_col}: A vs B spread",
         os.path.join(PLOTS_DIR, f"{base}__box.png"),
+    )
+    save_homoscedasticity_plot(
+        A, B,
+        f"{task_name} – {item_col}: |B-A| vs avg (spread check)",
+        os.path.join(PLOTS_DIR, f"{base}__homo.png"),
     )
 
     return {
