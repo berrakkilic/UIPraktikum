@@ -1,6 +1,6 @@
 participant_id,condition,reaction_time,major_errors,minor_erros,clicks,findability,clarity,intuitiveness,knowledge_independence,group
 2,A,9837,0,0,5,6,7,7,4,0
-2,B,14146,0,0,5,7,7,7,7,0
+2,B,12146,0,0,5,7,7,7,7,0
 3,A,10182,0,0,3,7,7,7,3,0
 3,B,5262,0,0,3,7,7,7,7,0
 12,A,32099,0,0,17,6,7,7,1,0
@@ -12,7 +12,7 @@ participant_id,condition,reaction_time,major_errors,minor_erros,clicks,findabili
 7,A,98109,0,6,12,4,7,7,1,1
 7,B,5047,0,0,4,6,7,4,7,1
 10,A,11261,0,0,3,7,7,4,4,1
-10,B,59852,1,0,7,7,7,7,7,1
+10,B,19852,1,0,7,7,7,7,7,1
 6,A,15583,0,0,3,5,7,7,3,1
 6,B,2314,0,0,3,5,7,7,7,1
 8,A,8334,0,0,5,7,7,7,6,1
